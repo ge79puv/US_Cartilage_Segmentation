@@ -1,0 +1,24 @@
+only_soft: 
+
+sam_vit_b:
+val1111: vacc=0.584353, vdice=0.158456, vsensitivity=0.539437, vspecifity=0.588393, vjac=0.087793, vhdloss=26.110851 
+sam_vit_l:
+val1111: vacc=0.398959, vdice=0.153823, vsensitivity=0.711630, vspecifity=0.373821, vjac=0.084309, vhdloss=27.863066 
+sam_vit_h:
+val1111: vacc=0.611719, vdice=0.170826, vsensitivity=0.546391, vspecifity=0.622288, vjac=0.095006, vhdloss=27.276985 
+medsam_vit_b:
+val1111: vacc=0.922358, vdice=0.000000, vsensitivity=0.000000, vspecifity=1.000000, vjac=0.000000, vhdloss=20.356314 
+
+
+all: 
+
+sam_vit_b:
+val1111: vacc=0.561508, vdice=0.084809, vsensitivity=0.547200, vspecifity=0.562706, vjac=0.046588, vhdloss=27.391962 
+
+
+
+
+学习率的影响有限，
+all和soft的dice分别为10和17最高
+损失函数mse和dice
+decoder和全部训练没啥差别，batch size只能=1
