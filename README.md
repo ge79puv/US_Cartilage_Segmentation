@@ -1,1 +1,44 @@
-tobe done
+# Class-Aware Cartilage Segmentation for Autonomous US-CT Registration in Robotic Intercostal Ultrasound Imaging
+
+\* This work has been accepted by IEEE Transactions on Automation Science and Engineering 2024.
+
+## Abstract
+
+Ultrasound imaging has been widely used in clinical examinations owing to the advantages of being portable, real-time, and radiation-free. Considering the potential of extensive deployment of autonomous examination systems in hospitals, robotic US imaging has attracted increased attention recently. However, due to the inter-patient variations, it is still challenging to have an optimal path for each patient, particularly for thoracic applications with limited acoustic windows, e.g., intercostal liver imaging. To address this problem, a class-aware cartilage bone segmentation network with geometry-constraint post-processing is presented to capture patient-specific rib skeletons. Then, a dense skeleton graph-based non-rigid registration is presented to map the intercostal scanning path from a generic template to individual patients. By explicitly considering the high-acoustic impedance bone structures, the transferred scanning path can be precisely located in the intercostal space, enhancing the visibility of internal organs by reducing the acoustic shadow. To evaluate the proposed approach, the final path registration performance has been validated on five distinct CTs and two volunteer US data, resulting in ten pairs of CT-US combinations. Results demonstrate that the proposed graph-based registration method can robustly and precisely map the path from CT template to individual patients (Euclidean error: 2.21 ± 1.11 mm).
+
+## Performance
+
+![1678801960153](image/README/1678801960153.png)
+
+Performance of scanning paths transferring from CT to US space on five distinct CT images.
+
+(a) Illustration of the results of 20 waypoints distributed in all intercostal spaces mapped from CT to US.
+
+(b) The statistical results of the mapping performance in terms of position error.
+
+## Documents Structure
+
+- `models/Attention.py`: CBAM attention module in fine segmentation network
+- `models/my_model.py`: Used to build coarse segmentation, classification and fine segmentation network
+- `models/U_Net.py`: U-Net network for the comparison experiments with DeepLabV3+ backbone
+- `models/VAE.py`: CBAM attention module in fine segmentation network
+- `models/xception.py`: Xception backbone for the DeepLabV3+ network
+- `utils/BD_loss.py`: Create boundary loss for training and evaluation
+- `utils/data_aug.py`: Code for data augmentation of images
+- `utils/metrics.py`: Create different loss functions for training and evaluation
+- `utils/other_metrics.py`: Used to determine whether the segmentation results are plausible
+- `utils/other_utils.py`: Some useful functions across different scripts
+- `utils/pcd_registration.py`: Post-processing pipeline for the point clouds of segmentation results, which is useful for the subsequent registration
+- `utils/rejection_sampling.py`: Rejection sampler of the valid samples in the latent space
+- `weights/xception-43020ad28.pth`: Pre-trained weight of classification network
+- `mask_generation.py`: The whole inference pipeline for this work (fine segmentation for mixed images)
+- `mask_generation_separate.py`: The whole inference pipeline for this work (fine segmentation for cartilage and non-cartilage images)
+- `post_processing.py`: Use the VAE-based module to post-process the fine segmentation results
+- `select_chest_soft.py`: Code used to convert the segmentation results of non-cartilage categories to black images 
+- `train_VAE.py`: Training script for boundary-constrained VAE-based post-processing module, also used to generate the valid samples with rejection sampling
+- `train_cls.py`: Training script for classification network
+- `train_coarse.py`: Training script for coarse segmentation network
+- `train_fine.py`: Training script for fine segmentation network (cartilage and other images are mixed in training dataset)
+- `train_fine_other.py`: Training script for fine segmentation network (only other images in training dataset)
+- `train_fine_soft.py`: Training script for fine segmentation network (only cartilage images in training dataset)
+
