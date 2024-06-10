@@ -14,10 +14,25 @@ The CUS-Net consists of four distinct modules: coarse segmentation, classificati
 
 ## Documents Structure
 
+### Training scripts
+- `train_coarse.py`: Training script for coarse segmentation network
+- `train_cls.py`: Training script for classification network
+- `train_fine.py`: Training script for fine segmentation network (cartilage and other images are mixed in training dataset)
+- `train_fine_other.py`: Training script for fine segmentation network (only other images in training dataset)
+- `train_fine_soft.py`: Training script for fine segmentation network (only cartilage images in training dataset)
+- `train_VAE.py`: Training script for boundary-constrained VAE-based post-processing module, also used to generate the valid samples with rejection sampling
+
+### Inference scripts
+- `mask_generation.py`: The whole inference pipeline for this work (fine segmentation for mixed images)
+- `mask_generation_separate.py`: The whole inference pipeline for this work (fine segmentation for cartilage and non-cartilage images)
+- `post_processing.py`: Use the VAE-based module to post-process the fine segmentation results
+- `select_chest_soft.py`: Code used to convert the segmentation results of non-cartilage categories to black images 
+
+### Other files
 - `models/Attention.py`: CBAM attention module in fine segmentation network
 - `models/my_model.py`: Used to build coarse segmentation, classification and fine segmentation network
 - `models/U_Net.py`: U-Net network for the comparison experiments with DeepLabV3+ backbone
-- `models/VAE.py`: CBAM attention module in fine segmentation network
+- `models/VAE.py`: Used to build VAE network for post-processing module
 - `models/xception.py`: Xception backbone for the DeepLabV3+ network
 - `utils/BD_loss.py`: Create boundary loss for training and evaluation
 - `utils/data_aug.py`: Code for data augmentation of images
@@ -27,14 +42,5 @@ The CUS-Net consists of four distinct modules: coarse segmentation, classificati
 - `utils/pcd_registration.py`: Post-processing pipeline for the point clouds of segmentation results, which is useful for the subsequent registration
 - `utils/rejection_sampling.py`: Rejection sampler of the valid samples in the latent space
 - `weights/xception-43020ad28.pth`: Pre-trained weight of classification network
-- `mask_generation.py`: The whole inference pipeline for this work (fine segmentation for mixed images)
-- `mask_generation_separate.py`: The whole inference pipeline for this work (fine segmentation for cartilage and non-cartilage images)
-- `post_processing.py`: Use the VAE-based module to post-process the fine segmentation results
-- `select_chest_soft.py`: Code used to convert the segmentation results of non-cartilage categories to black images 
-- `train_VAE.py`: Training script for boundary-constrained VAE-based post-processing module, also used to generate the valid samples with rejection sampling
-- `train_cls.py`: Training script for classification network
-- `train_coarse.py`: Training script for coarse segmentation network
-- `train_fine.py`: Training script for fine segmentation network (cartilage and other images are mixed in training dataset)
-- `train_fine_other.py`: Training script for fine segmentation network (only other images in training dataset)
-- `train_fine_soft.py`: Training script for fine segmentation network (only cartilage images in training dataset)
+
 
